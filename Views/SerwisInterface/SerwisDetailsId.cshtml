@@ -1,0 +1,110 @@
+﻿@model WypozyczeniaAPI.Models.MyModelSingle<Serwis, Pojazd, List<Opis>>
+
+@{
+    ViewData["Title"] = "Detale";
+    Layout = "~/Views/Shared/_Layout_admin.cshtml";
+}
+
+<h2>Serwis</h2>
+
+<hr />
+<dl class="row">
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Obj1.DataRozpoczecia)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Obj1.DataRozpoczecia)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Obj1.DataZakonczenia)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Obj1.DataZakonczenia)
+    </dd>
+     <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Obj1.AdminId)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Obj1.AdminId)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Obj1.PracownikId)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Obj1.PracownikId)
+    </dd>
+</dl>
+
+<h2>Pojazd</h2>
+
+<hr />
+<dl class="row">
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Obj2.Rejestracja)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Obj2.Rejestracja)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Obj2.Marka)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Obj2.Marka)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Obj2.Model)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Obj2.Model)
+    </dd>
+</dl>
+
+<h2>Opisy</h2>
+@{
+    <a asp-action="AddOpis" asp-route-id=@TempData["Id"]>Dodaj Opis</a>
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Data
+            </th>
+            <th>
+                Typ
+            </th>
+            <th>
+                Tytul
+            </th>
+            <th>
+                Treść
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Obj3)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Data)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Typ)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tytul)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Treść)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edytuj</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Detale</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Usuń</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,62 @@
+﻿@model WypozyczeniaAPI.Models.Rezerwacja
+
+@{
+    ViewData["Title"] = "Detale";
+    //Layout = ViewBag.Layout;
+    @if (User.IsInRole("Admin"))
+    {
+        Layout = "~/Views/Shared/_Layout_admin.cshtml";
+    }
+    @if (User.IsInRole("User"))
+    {
+        Layout = "~/Views/Shared/_Layout_uzyt.cshtml";
+    }
+}
+
+@if (ViewBag.Message != null)
+{
+    <script>
+
+        $(document).ready(function () {
+
+            alert('@ViewBag.Message');
+
+        });
+
+    </script>
+
+}
+
+<h1>Detale</h1>
+
+<div>
+    <h4>Rezerwacja</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DataRozpoczęcia)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DataRozpoczęcia)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DataZakończenia)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DataZakończenia)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PojazdId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PojazdId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UzytkownikId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UzytkownikId)
+        </dd>
+    </dl>
+</div>
+

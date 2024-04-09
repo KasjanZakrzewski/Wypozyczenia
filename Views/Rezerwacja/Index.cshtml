@@ -1,0 +1,90 @@
+﻿@model IEnumerable<WypozyczeniaAPI.Models.Dto.WypoRezDto2>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout_admin.cshtml";
+    int page = ViewBag.page;
+}
+
+@if (ViewBag.Message != null)
+{
+    <script>
+
+        $(document).ready(function () {
+
+            alert('@ViewBag.Message');
+
+        });
+
+    </script>
+
+}
+
+<h1>Rezerwacje</h1>
+
+<p>
+    <a asp-action="Create">Dodaj nowy</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DataRozpoczęcia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataZakończenia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rejestracja)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Marka)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Model)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email) Użytkownika
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataRozpoczęcia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataZakończenia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rejestracja)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Marka)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Model)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edytuj</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Detale</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Usuń</a> |
+                    <a asp-action="End" asp-route-id="@item.Id">Zakończ</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+@{
+    ViewBag.page -= 1;
+    <a asp-action="index" asp-route-page="@ViewBag.page">Poprzedni</a>
+    ViewBag.page += 2;
+    <a asp-action="index" asp-route-page="@ViewBag.page">Następny</a>
+    
+}
+

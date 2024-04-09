@@ -1,0 +1,168 @@
+﻿@model WypozyczeniaAPI.Models.MyModel<RezWypDto,RezWypDto,PojazdMap>
+
+@{
+    ViewData["Title"] = "Rezerwacje";
+    Layout = "~/Views/Shared/_Layout_uzyt.cshtml";
+}
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin="" />
+<!-- Make sure you put this AFTER Leaflet's CSS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
+
+<h1>Rezerwacje</h1>
+
+<section>
+    <div id="map" style="width: 100%; height: 400px;"></div>
+
+    <script>
+        var map = L.map('map').setView([52.2907005052, 21.0359861425], 16);
+
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        var pozycja = L.marker([]);
+
+        @foreach (var item in Model.List3)
+        {
+            <text>
+                                        var WE = parseFloat("@item.WE".replace(',', '.'));
+            var NS = parseFloat("@item.NS".replace(',', '.'));
+            var pozycja = L.marker([NS, WE]).addTo(map);
+
+            var detailsUrl = '@Url.Action("Details", "UzytInterface", new { id = item.Id, category = "P" })';
+            var zarezerwujUrl = '@Url.Action("End", "UzytInterface", new { id = item.RezerwacjaId, category = "R" })';
+            var wypozyczUrl = '@Url.Action("Wypozycz", "UzytInterface", new { id = item.RezerwacjaId, category = "R" })';
+
+            var popupContent = document.createElement('div');
+
+            popupContent.innerHTML = `
+                                                <b>@item.Marka @item.Model</b><br>
+                @item.Rejestracja <br>
+
+                                                <a href="${detailsUrl}">Detale</a>
+
+                                                <form action="${zarezerwujUrl}" method="post">
+                                                    <input type="submit" value="Zakończ"/>
+                                                </form>
+                                                <form action="${wypozyczUrl}" method="post">
+                                                    <input type="submit" value="Wypozycz"/>
+                                                </form>
+                                            `;
+
+            pozycja.bindPopup(popupContent);
+
+            </text>
+        }
+    </script>
+
+</section>
+
+<h2>Aktywne Rezerwacje</h2>
+<section>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                DataRozpoczęcia
+            </th>
+            <th>
+                DataZakończenia
+            </th>
+            <th>
+                Marka
+            </th>
+            <th>
+                Model
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.List1)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataRozpoczęcia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataZakończenia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Marka)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Model)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id" asp-route-category="R" class="btn btn-primary" style="float: left">Detale</a>
+
+                    <form asp-action="Wypozycz" asp-route-id="@item.Id" asp-route-category="R">
+                        <input type="submit" value="Wypożycz" class="btn btn-primary" style="float: left" />
+                    </form>
+
+                    <form asp-action="End" asp-route-id="@item.Id" asp-route-category="R">
+                        <input type="submit" value="Zakończ" class="btn btn-primary" style="float: left" />
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>Zakończone Rezerwacje</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                DataRozpoczęcia
+            </th>
+            <th>
+                DataZakończenia
+            </th>
+            <th>
+                Marka
+            </th>
+            <th>
+                Model
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        @foreach (var item in Model.List2)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataRozpoczęcia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataZakończenia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Marka)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Model)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id" asp-route-category="R" class="btn btn-primary" style="float: left">Detale</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+    @{
+        ViewBag.page -= 1;
+        <a asp-action="Rezerwacje" asp-route-page="@ViewBag.page">Poprzedni</a>
+        ViewBag.page += 2;
+        <a asp-action="Rezerwacje" asp-route-page="@ViewBag.page">Następny</a>
+
+    }
+</section>

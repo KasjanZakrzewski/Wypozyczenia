@@ -1,0 +1,45 @@
+﻿@model WypozyczeniaAPI.Models.Opis
+
+@{
+    //Layout = "~/Views/Shared/_Layout_admin.cshtml";
+    @if (User.IsInRole("Admin"))
+    {
+        Layout = "~/Views/Shared/_Layout_admin.cshtml";
+    }
+    @if (User.IsInRole("Employee"))
+    {
+        Layout = "~/Views/Shared/_Layout_prac.cshtml";
+    }
+}
+
+<h4>Opis</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+
+                <input type="hidden" asp-for="Data" value=@TempData["Data"] />
+                @{
+                    <input type="hidden" asp-for="Typ" value=@TempData["Typ"] />
+                }
+                
+            <div class="form-group">
+                <label asp-for="Tytul" class="control-label"></label>
+                <input asp-for="Tytul" class="form-control" />
+                <span asp-validation-for="Tytul" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Treść" class="control-label"></label>
+                <input asp-for="Treść" class="form-control" />
+                <span asp-validation-for="Treść" class="text-danger"></span>
+            </div>
+                @{
+                <input type="hidden" asp-for="SerwisId" value=@TempData["SerwisId"] />
+                }
+            <div class="form-group">
+                <input type="submit" value="Dodaj" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+

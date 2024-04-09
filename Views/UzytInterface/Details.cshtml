@@ -1,0 +1,47 @@
+﻿@model WypozyczeniaAPI.Models.Pojazd
+
+@{
+    ViewData["Title"] = "Detale";
+}
+
+<h1>Detale</h1>
+
+<div>
+    <h4>Pojazd</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Rejestracja)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Rejestracja)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Marka)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Marka)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Model)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Model)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NS)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NS)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.WE)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.WE)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Index">Powrót do listy</a>
+</div>

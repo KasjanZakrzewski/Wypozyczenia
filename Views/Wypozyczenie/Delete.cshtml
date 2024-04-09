@@ -1,0 +1,46 @@
+﻿@model WypozyczeniaAPI.Models.Wypozyczenie
+
+@{
+    ViewData["Title"] = "Usuń";
+    Layout = "~/Views/Shared/_Layout_admin.cshtml";
+}
+
+<h1>Usuń</h1>
+
+<h3>Jesteś pewien, że chcesz usunąć poniższe Wypożyczenie?</h3>
+<div>
+    <h4>Wypozyczenie</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DataRozpoczęcia)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DataRozpoczęcia)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DataZakończenia)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DataZakończenia)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PojazdId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PojazdId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UzytkownikId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UzytkownikId)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Usuń" class="btn btn-danger" /> |
+        <a asp-action="Index">Powrót do listy</a>
+    </form>
+</div>

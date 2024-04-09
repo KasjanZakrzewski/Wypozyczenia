@@ -1,0 +1,11 @@
+W celu uruchomienia oprogramowania należy: 
+1. Uruchomić plik "WypozyczeniaAPI.sln" przy pomocy programu Visual Studio w wersji 2022 lub nowszej.
+2. Przeprowadzić kompilacje i uruchomić projekt.
+
+System zostanie uruchomiony z:
+1. trzema użytkownikami: 
+   - login: admin@admin.com   | rola: Admin
+   - login: tomasz@test.com   | rola: User
+   - login: piotrek@praco.com | rola: Employee
+   - Hasło do wszystkich kont: zaq1@WSX
+2. Pozostałe tablice są puste.

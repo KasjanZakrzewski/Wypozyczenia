@@ -1,0 +1,60 @@
+﻿@model WypozyczeniaAPI.Models.Wypozyczenie
+
+@{
+    ViewData["Title"] = "Edycja";
+    Layout = "~/Views/Shared/_Layout_admin.cshtml";
+}
+
+<h1>Edytuj</h1>
+
+<h4>Wypozyczenie</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="DataRozpoczęcia" class="control-label"></label>
+                <input asp-for="DataRozpoczęcia" class="form-control" />
+                <span asp-validation-for="DataRozpoczęcia" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DataZakończenia" class="control-label"></label>
+                <input asp-for="DataZakończenia" required="false" class="form-control" />
+                <span asp-validation-for="DataZakończenia" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Dystans" class="control-label"></label>
+                <input asp-for="Dystans" required="false" class="form-control" />
+                <span asp-validation-for="Dystans" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Oplata" class="control-label"></label>
+                <input asp-for="Oplata" required="false" class="form-control" />
+                <span asp-validation-for="Oplata" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PojazdId" class="control-label"></label>
+                <input asp-for="PojazdId" class="form-control" />
+                <span asp-validation-for="PojazdId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UzytkownikId" class="control-label"></label>
+                <input asp-for="UzytkownikId" class="form-control" />
+                <span asp-validation-for="UzytkownikId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Zapisz" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Powrót do listy</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

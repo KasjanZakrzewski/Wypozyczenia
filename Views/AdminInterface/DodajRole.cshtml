@@ -1,0 +1,50 @@
+﻿@model WypozyczeniaAPI.Areas.Identity.Data.User
+
+@{
+    ViewData["Title"] = "Usuń";
+    Layout = "~/Views/Shared/_Layout_admin.cshtml";
+}
+
+<h3>Jesteś pewny, że chcesz zwiększyć uprawnienia użytkownika?</h3>
+<div>
+    <h4>Dane użytkownika</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Imie)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Imie)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Nazwisko)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Nazwisko)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+    </dl>
+    
+    <form asp-action="Dodaj" asp-route-rola="@ViewBag.rola">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Dodaj" class="btn btn-danger" /> |
+        <a asp-action="Role">Powrót do listy</a>
+    </form>
+</div>

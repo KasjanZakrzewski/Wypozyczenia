@@ -1,0 +1,149 @@
+﻿@model WypozyczeniaAPI.Models.MyModel<Pojazd, Pojazd, Pojazd, Pojazd, Pojazd>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout_admin.cshtml";
+}
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin="" />
+<!-- Make sure you put this AFTER Leaflet's CSS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
+
+<section>
+    <h2></h2>
+
+    <div id="map" style="width: 100%; height: 650px;"></div>
+</section>
+
+<script>
+    var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap'
+    });
+
+    var map = L.map('map', {
+        center: [52.2907005052, 21.0359861425],
+        zoom: 16,
+        layers: [osm]
+    });
+    var layerControl = L.control.layers().addTo(map);
+
+    var dostepne = L.layerGroup([]);
+    @foreach (var item in Model.List1)
+    {
+        <text>
+        var WE = parseFloat("@item.WE".replace(',', '.'));
+        var NS = parseFloat("@item.NS".replace(',', '.'));
+        var pozycja = L.marker([NS, WE]);
+        dostepne.addLayer(pozycja);
+
+        var detailsUrl = '@Url.Action("Details", "Pojazd", new { id = item.Id })';
+        var SerwisUrl = '@Url.Action("Serwis", "SerwisInterface", new { id = item.Id })';
+        
+        var popupContent = document.createElement('div');
+
+        popupContent.innerHTML = `
+            <b>Dostepny:</b><br>
+            <b>@item.Marka @item.Model</b><br>
+            @item.Rejestracja <br>
+            
+            <a href="${detailsUrl}">Detale</a>
+
+            <form action="${SerwisUrl}" method="post">
+                <input type="submit" value="Serwisuj"/>
+            </form>`;
+
+        pozycja.bindPopup(popupContent);
+
+        </text>
+    }
+    layerControl.addOverlay(dostepne, "Dostepne");
+
+    var serwis = L.layerGroup([]);
+    @foreach (var item in Model.List2)
+    {
+        <text>
+        var WE = parseFloat("@item.WE".replace(',', '.'));
+        var NS = parseFloat("@item.NS".replace(',', '.'));
+        var pozycja = L.marker([NS, WE]);
+        serwis.addLayer(pozycja);
+
+        var detailsUrl = '@Url.Action("Details", "Pojazd", new { id = item.Id })';
+        var PojazdDetailsUrl = '@Url.Action("PojazdDetails", "SerwisInterface", new { id = item.Id })';
+        
+        var popupContent = document.createElement('div');
+
+        popupContent.innerHTML = `
+            <b>Serwisowany:</b><br>
+            <b>@item.Marka @item.Model</b><br>
+            @item.Rejestracja <br>
+
+                    <a href="${detailsUrl}">Detale</a>
+
+            <form action="${PojazdDetailsUrl}" method="post">
+                <input type="submit" value="Historia Serwisu"/>
+            </form>`;
+
+        pozycja.bindPopup(popupContent);
+
+        </text>
+    }
+    layerControl.addOverlay(serwis, "Serwis");
+
+    var zarezerwowane = L.layerGroup([]);
+    @foreach (var item in Model.List3)
+    {
+        <text>
+        var WE = parseFloat("@item.WE".replace(',', '.'));
+        var NS = parseFloat("@item.NS".replace(',', '.'));
+        var pozycja = L.marker([NS, WE]);
+        zarezerwowane.addLayer(pozycja);
+
+        var detailsUrl = '@Url.Action("Details", "Pojazd", new { id = item.Id })';
+        
+        var popupContent = document.createElement('div');
+
+        popupContent.innerHTML = `
+            <b>Zarezerwowany:</b><br>
+            <b>@item.Marka @item.Model</b><br>
+            @item.Rejestracja <br>
+
+                    <a href="${detailsUrl}">Detale</a>`;
+
+        pozycja.bindPopup(popupContent);
+
+        </text>
+    }
+    layerControl.addOverlay(zarezerwowane, "Zarezerwowane");
+
+    var wypozyczone = L.layerGroup([]);
+    @foreach (var item in Model.List4)
+    {
+        <text>
+        var WE = parseFloat("@item.WE".replace(',', '.'));
+        var NS = parseFloat("@item.NS".replace(',', '.'));
+        var pozycja = L.marker([NS, WE]);
+        wypozyczone.addLayer(pozycja);
+
+        var detailsUrl = '@Url.Action("Details", "Pojazd", new { id = item.Id })'; 
+
+        var popupContent = document.createElement('div');
+
+        popupContent.innerHTML = `
+            <b>Wypozyczony:</b><br>
+            <b>@item.Marka @item.Model</b><br>
+            @item.Rejestracja <br>
+
+                    <a href="${detailsUrl}">Detale</a>`;
+
+        pozycja.bindPopup(popupContent);
+
+        </text>
+    }
+    layerControl.addOverlay(wypozyczone, "Wypozyczone");
+
+</script>

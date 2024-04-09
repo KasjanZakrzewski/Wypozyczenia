@@ -1,0 +1,14 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using WypozyczeniaAPI.Areas.Identity.Data;
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+@{
+    ViewData["Title"] = "Home Page";
+    //ViewData["Rola"] = User.IsInRole("User");
+}
+
+<div class="text-center">
+    <h1 class="display-4">Witam</h1>
+</div>

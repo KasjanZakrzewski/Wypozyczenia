@@ -1,0 +1,26 @@
+﻿@model WypozyczeniaAPI.Models.Pojazd
+
+@{
+    ViewData["Title"] = "Loc";
+    var latitude = 1;
+    var longitude = 1;
+}
+
+<script>
+    if ("geolocation" in navigator) {
+        // Geolocation jest dostępny w przeglądarce
+        navigator.geolocation.getCurrentPosition(function (position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+            alert(latitude);
+            alert(longitude);
+            // Tutaj możesz użyć współrzędnych (latitude i longitude)
+            // na przykład, aby wysłać na serwer lub dostosować zachowanie strony
+        });
+    } else {
+        // Geolocation nie jest dostępny w przeglądarce
+        console.log("Geolokalizacja jest niedostępna w tej przeglądarce.");
+    }
+</script>
+
+<h1>Details</h1>

@@ -1,0 +1,96 @@
+﻿@model WypozyczeniaAPI.Models.MyModel<UzytkownikDto, UzytkownikDto>
+
+@{
+    ViewData["Title"] = "Role";
+    Layout = "~/Views/Shared/_Layout_admin.cshtml";
+}
+
+@if (ViewBag.Message != null)
+{
+    <script>
+
+        $(document).ready(function(){
+
+        alert('@ViewBag.Message');
+
+        });
+
+    </script>
+
+}
+
+<section>
+    <h2>Dostepni Pracownicy</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Imie
+                    </th>
+                    <th>
+                        Nazwisko
+                    </th>
+                    <th>
+                        Username
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.List1)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Imie)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nazwisko)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserName)
+                        </td>
+                        <td>
+                            <a asp-action="DodajRole" asp-route-id="@item.Id" asp-route-rola="Admin">Dodaj role "Admin"</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    <h2>Dostepni Uzytkownicy</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Imie
+                </th>
+                <th>
+                    Nazwisko
+                </th>
+                <th>
+                    Username
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.List2)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Imie)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nazwisko)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserName)
+                    </td>
+                    <td>
+                        <a asp-action="DodajRole" asp-route-id="@item.Id" asp-route-rola="Employee">Dodaj role "Employee"</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</section>
+

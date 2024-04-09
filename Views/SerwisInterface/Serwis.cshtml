@@ -1,0 +1,106 @@
+﻿@model WypozyczeniaAPI.Models.MyModel<Pojazd, UzytkownikDto>
+
+@{
+    ViewData["Title"] = "Detale";
+    Layout = "~/Views/Shared/_Layout_admin.cshtml";
+}
+
+@if (ViewBag.Message != null)
+{
+    <script>
+
+        $(document).ready(function () {
+
+            alert('@ViewBag.Message');
+
+        });
+
+    </script>
+
+}
+
+<section>
+    <h2>Pojazd</h2>
+    <hr />
+        @foreach (var item in Model.List1)
+        {
+            int PojId = item.Id;
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(modelItem => item.Rejestracja)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(modelItem => item.Rejestracja)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(modelItem => item.Marka)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(modelItem => item.Marka)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(modelItem => item.Model)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(modelItem => item.Model)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(modelItem => item.Status)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(modelItem => item.Status)
+                </dd>
+            </dl>
+        }
+        
+    
+
+        @if (Model.List2.Count() > 0)
+        {
+        <h2>Dostepni Pracownicy</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Imie
+                        </th>
+                        <th>
+                            Nazwisko
+                        </th>
+                        <th>
+                            Username
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.List2)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Imie)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nazwisko)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UserName)
+                            </td>
+                            <td>
+                                <!-- spr ile pracownik ma serwisów -->
+                                <form asp-action="Przydziel">
+                                    <input type="hidden" name="PracownikId" value=@item.Id />
+                                <input type="hidden" name="PojazdId" value=@Model.List1.FirstOrDefault().Id />
+                                    
+                                    <div class="form-group">
+                                        <input type="submit" value="Przydziel" class="btn btn-primary" />
+                                    </div>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+</section>
+

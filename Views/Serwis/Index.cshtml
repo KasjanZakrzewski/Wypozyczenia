@@ -1,0 +1,81 @@
+﻿@model IEnumerable<WypozyczeniaAPI.Models.Serwis>
+
+@{
+    Layout = "~/Views/Shared/_Layout_admin.cshtml";
+}
+
+@if (ViewBag.Message != null)
+{
+    <script>
+
+        $(document).ready(function () {
+
+            alert('@ViewBag.Message');
+
+        });
+
+    </script>
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+<p>
+        <a asp-action="Create">Dodaj nowy</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DataRozpoczecia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataZakonczenia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pojazd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Admin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pracownik)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataRozpoczecia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataZakonczenia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pojazd.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Admin.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pracownik.Id)
+            </td>
+            <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edytuj</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Detale</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Usuń</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</body>
+</html>

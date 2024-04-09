@@ -1,0 +1,66 @@
+﻿@model IEnumerable<WypozyczeniaAPI.Models.Dto.BudzetDto>
+
+@{
+    ViewData["Title"] = "Bilans";
+    Layout = "~/Views/Shared/_Layout_uzyt.cshtml";
+    float Suma = 0;
+}
+<style>
+    .flex-container {
+        display: flex;
+        align-items: center; 
+    }
+</style>
+
+<section>
+   <h2>Bilans</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Data
+                </th>
+                <th>
+                    Dystans
+                </th>
+                <th>
+                    Oplata
+                </th>
+                <th id="Bilans">
+
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Data)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Dystans)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Oplata)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id" asp-route-category="W" class="btn btn-primary" style="float: left">Detale</a>
+                </td>
+            </tr>
+                Suma += item.Oplata;
+            }
+        </tbody>
+    </table>
+</section>
+
+<section>
+    <h4>Bilans: @Suma</h4>
+</section>
+
+<script>
+    var element = document.getElementById('Bilans');
+    if (element) {
+        element.innerHTML = 'Bilans: @Suma';
+    }
+</script>

@@ -1,0 +1,99 @@
+﻿@model WypozyczeniaAPI.Models.MyModelSingle<Wypozyczenie, List<WypozyczeniaAPI.Models.Dto.PozycjaDto>>
+
+@{
+    ViewData["Title"] = "Detale";
+    @if (User.IsInRole("Admin"))
+    {
+        Layout = "~/Views/Shared/_Layout_admin.cshtml";
+    }
+    @if (User.IsInRole("User"))
+    {
+        Layout = "~/Views/Shared/_Layout_uzyt.cshtml";
+    }
+}
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin="" />
+<!-- Make sure you put this AFTER Leaflet's CSS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
+
+<h1>Detale</h1>
+
+<div>
+    <h4>Wypozyczenie</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Obj1.DataRozpoczęcia)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Obj1.DataRozpoczęcia)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Obj1.DataZakończenia)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Obj1.DataZakończenia)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Obj1.Dystans)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Obj1.Dystans)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Obj1.Oplata)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Obj1.Oplata)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Obj1.PojazdId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Obj1.PojazdId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Obj1.UzytkownikId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Obj1.UzytkownikId)
+        </dd>
+    </dl>
+
+    <h4>Trasa przejazdu:</h4>
+    <div id="map" style="width: 100%; height: 400px;"></div>
+
+</div>
+
+<script>
+    var pierwszy = true;
+    var map = L.map('map').setView([0, 0], 16);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    var trasa = L.polyline([], { color: 'blue' }).addTo(map);
+    var latlng = L.latLng([0, 0]);
+
+    @foreach (var item in Model.Obj2)
+        {
+            <text>
+                var WE = parseFloat("@item.WE".replace(',', '.'));
+                var NS = parseFloat("@item.NS".replace(',', '.'));
+                var latlng = L.latLng([NS, WE]);
+                trasa.addLatLng(latlng);
+
+                if (pierwszy) {
+                    map.setView([NS, WE], 16);
+                    var marker = L.marker([NS, WE]).addTo(map);
+                    pierwszy = false;
+                }
+            </text>
+        }
+    var marker = L.marker([NS, WE]).addTo(map);
+</script>

@@ -1,0 +1,207 @@
+﻿@model WypozyczeniaAPI.Models.MyModel<SerwisDto,SerwisDto, SerwisDto>
+
+@{
+    ViewData["Title"] = "Detale";
+    @if (User.IsInRole("Admin"))
+    {
+        Layout = "~/Views/Shared/_Layout_admin.cshtml";
+    }
+    @if (User.IsInRole("Employee"))
+    {
+        Layout = "~/Views/Shared/_Layout_prac.cshtml";
+    }
+}
+
+@if (ViewBag.Message != null)
+{
+    <script>
+
+        $(document).ready(function () {
+
+            alert('@ViewBag.Message');
+
+        });
+
+    </script>
+
+}
+
+<h1>Aktywne Serwisy</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                DataRozpoczecia
+            </th>
+            <th>
+                DataZakonczenia
+            </th>
+            <th>
+                Pojazd
+            </th>
+            <th>
+                Admin
+            </th>
+            <th>
+                Pracownik
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.List1)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataRozpoczecia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataZakonczenia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rejestracja) |
+
+                    @Html.DisplayFor(modelItem => item.Marka) 
+
+                    @Html.DisplayFor(modelItem => item.Model)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Admin)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pracownik)
+                </td>
+                <td>
+                    <text>
+                        <a asp-action="SerwisDetails" asp-route-id="@item.Id">Detale</a> |
+                        <a asp-action="End" asp-route-id="@item.Id">Zakończ</a>
+                    </text>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h1>Oczekujące Serwisy</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                DataRozpoczecia
+            </th>
+            <th>
+                DataZakonczenia
+            </th>
+            <th>
+                Pojazd
+            </th>
+            <th>
+                Admin
+            </th>
+            <th>
+                Pracownik
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.List2)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataRozpoczecia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataZakonczenia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rejestracja) |
+
+                    @Html.DisplayFor(modelItem => item.Marka)
+
+                    @Html.DisplayFor(modelItem => item.Model)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Admin)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pracownik)
+                </td>
+                <td>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <text>
+                            <a asp-action="SerwisDetails" asp-route-id="@item.Id">Detale</a> |
+                            <a asp-action="End" asp-route-id="@item.Id">Zakończ</a>
+                        </text>
+                    }
+                    else
+                    {
+                        <text>
+                            
+                            <a asp-action="Rozpocznij" asp-route-id="@item.Id">Rozpocznij</a> |
+                            <a asp-action="SerwisDetails" asp-route-id="@item.Id">Detale</a>
+                        </text>
+                    }
+                    
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h1>Zakończone Serwisy</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                DataRozpoczecia
+            </th>
+            <th>
+                DataZakonczenia
+            </th>
+            <th>
+                Pojazd
+            </th>
+            <th>
+                Admin
+            </th>
+            <th>
+                Pracownik
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.List3)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataRozpoczecia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataZakonczenia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rejestracja) |
+
+                    @Html.DisplayFor(modelItem => item.Marka)
+
+                    @Html.DisplayFor(modelItem => item.Model)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Admin)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pracownik)
+                </td>
+                <td>
+                    <a asp-action="SerwisDetails" asp-route-id="@item.Id">Detale</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
